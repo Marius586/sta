@@ -28,7 +28,7 @@ struct {     // Configuration struct (convenience for more in the future)
 int main(int argc, char *argv[])
 {
     ::ShowWindow(::GetConsoleWindow(), SW_HIDE); // Hide console window
-    int i = 1;
+    int i = 1; // Start at 1 to skip program name
     conf.reboot = true;
     while (argv[i]!=NULL) // Check for flags (convenience for more in the future)
     {
@@ -46,6 +46,16 @@ int main(int argc, char *argv[])
 
         i++;
     }
+    LPSTR buffer = new CHAR[100];
+    GetModuleFileNameA(NULL, buffer, 100);
+    
+    std::string filePath(buffer); // Convert the buffer to a std::string
+    size_t pos = filePath.find_last_of("\\/"); // Find the last occurrence of a directory separator (\ or /)
+
+    if (pos != std::string::npos) { // Check if a directory separator was found
+        filePath.erase(pos); // Erase the file name and keep the directory path
+    }
+    SetCurrentDirectoryA(filePath.c_str()); // Set the current directory to the directory of the executable
     std::ifstream file("sta.conf"); // Open configuration file (change name here if you want)
     if(file.fail())
     {
