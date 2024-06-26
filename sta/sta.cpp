@@ -4,7 +4,7 @@
 * The program is designed to be run as a service, so it will not display any output.
 * The program will display an error message if the configuration file is not found or if a file is not found.
 * config file format:
-* <sdXn> // sdXn is the partition name, where X is the disk number and n is the partition number (got from the linux filesystem)
+* <sdXn> // sdXn is the partition name, where X is the disk letter and n is the partition number (got from the linux filesystem, ex. sda1)
 * <file name>
 * <sdXn>
 * <file name>
